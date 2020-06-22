@@ -15,7 +15,7 @@ import (
 	dsig "github.com/russellhaering/goxmldsig"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/crewjam/saml/testsaml"
+	"github.com/rstudio/crewjam-saml/testsaml"
 )
 
 type ServiceProviderTest struct {

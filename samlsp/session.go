@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/crewjam/saml"
+	"github.com/rstudio/crewjam-saml"
 )
 
 // Session is an interface implemented to contain a session.

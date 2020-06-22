@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/crewjam/saml/samlsp"
+	"github.com/rstudio/crewjam-saml/samlsp"
 )
 
 func hello(w http.ResponseWriter, r *http.Request) {

@@ -27,7 +27,7 @@ func main() {
 		panic(err) // TODO handle error
 	}
 
-	idpMetadataURL, err := url.Parse("https://www.testshib.org/metadata/testshib-providers.xml")
+	idpMetadataURL, err := url.Parse("https://samltest.id/saml/idp")
 	if err != nil {
 		panic(err) // TODO handle error
 	}
@@ -42,6 +42,7 @@ func main() {
 		URL:            *rootURL,
 		Key:            keyPair.PrivateKey.(*rsa.PrivateKey),
 		Certificate:    keyPair.Leaf,
+		SignRequest:    true,
 	})
 	app := http.HandlerFunc(hello)
 	http.Handle("/hello", samlSP.RequireAccount(app))

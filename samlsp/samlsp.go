@@ -7,6 +7,7 @@ import (
 	"crypto/x509"
 	"encoding/xml"
 	"fmt"
+	dsig "github.com/russellhaering/goxmldsig"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -35,6 +36,7 @@ type Options struct {
 	CookieDomain      string
 	CookieSecure      bool
 	ForceAuthn        bool
+	SignRequest       bool
 }
 
 // New creates a new Middleware
@@ -54,6 +56,10 @@ func New(opts Options) (*Middleware, error) {
 	if opts.CookieMaxAge == 0 {
 		tokenMaxAge = defaultTokenMaxAge
 	}
+	signatureMethod := dsig.RSASHA1SignatureMethod
+	if !opts.SignRequest {
+		signatureMethod = ""
+	}
 
 	m := &Middleware{
 		ServiceProvider: saml.ServiceProvider{
@@ -67,6 +73,7 @@ func New(opts Options) (*Middleware, error) {
 			IDPMetadata:       opts.IDPMetadata,
 			ForceAuthn:        &opts.ForceAuthn,
 			AllowIDPInitiated: opts.AllowIDPInitiated,
+			SignatureMethod:   signatureMethod,
 		},
 		AllowIDPInitiated: opts.AllowIDPInitiated,
 		TokenMaxAge:       tokenMaxAge,
